@@ -15,9 +15,9 @@ public class PriorityQueue<E> {
 	}
      
 	// Adds an item to the priority queue.
-	public void add(E x)
-	{
-		throw new UnsupportedOperationException();
+	public void add(E x) {
+		heap.add(x);
+		siftUp(heap.size());
 	}
 
 	// Returns the smallest item in the priority queue.
@@ -44,9 +44,19 @@ public class PriorityQueue<E> {
 	// siftUp(index) fixes the invariant if the element at 'index' may
 	// be less than its parent, but all other elements are correct.
 	private void siftUp(int index) {
-		throw new UnsupportedOperationException();
+		E value = heap.get(index);
+
+
+		while(!(heap.get(parent(index)) == heap.get(index))) {
+			E parentValue = heap.get(parent(index));
+
+			if (comparator.compare(value,parentValue) > 0) {
+				heap.set(index, parentValue);
+				index = parent(index);
+			}
+		}
 	}
-     
+
 	// Sifts a node down.
 	// siftDown(index) fixes the invariant if the element at 'index' may
 	// be greater than its children, but all other elements are correct.
