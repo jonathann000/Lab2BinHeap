@@ -93,6 +93,16 @@ public class PriorityQueue<E> {
 		heap.set(index, value);
 	}
 
+	void ChangeBid(E newE, E oldE){
+		int ind = heap.indexOf(oldE);
+		heap.set(ind, newE);
+		if(comparator.compare(newE, oldE) > 0){
+			siftUp(ind);
+		}else {
+			siftDown(ind);
+		}
+	}
+
 	// Helper functions for calculating the children and parent of an index.
 	private final int leftChild(int index) {
 		return 2*index+1;
