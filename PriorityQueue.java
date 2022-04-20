@@ -22,7 +22,7 @@ public class PriorityQueue<E> {
 
 	// Returns the smallest item in the priority queue.
 	// Throws NoSuchElementException if empty.
-	public E minimum() {
+	public E getHighestPriorityElement() {
 		if (size() == 0)
 			throw new NoSuchElementException();
 
@@ -31,7 +31,7 @@ public class PriorityQueue<E> {
 
 	// Removes the smallest item in the priority queue.
 	// Throws NoSuchElementException if empty.
-	public void deleteMinimum() {
+	public void deleteRootElement() {
 		if (size() == 0)
 			throw new NoSuchElementException();
 
