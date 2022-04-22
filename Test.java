@@ -8,7 +8,7 @@ public class Test {
         Bid sara   = new Bid("sara", 2);
         Bid niklas = new Bid("niklas", 3);
 
-        Bid bruh   = new Bid("bruh", 10);
+        Bid bruh   = new Bid("bruh", 1);
 
 
         pqMax.add(pelle);
@@ -26,7 +26,12 @@ public class Test {
 
         pqMax.updateElement(bruh, pelle);
 
-        System.out.println(pqMax.getHighestPrioElem());
+        //System.out.println(pqMax.getHighestPrioElem());
+
+        for (Bid bid : pqMax.heap) {
+            System.out.println(bid.toString());
+
+        }
 
 
 

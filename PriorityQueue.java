@@ -2,7 +2,7 @@ import java.util.*;
 
 // A priority queue.
 public class PriorityQueue<E> {
-	private ArrayList<E> heap = new ArrayList<E>();
+	public ArrayList<E> heap = new ArrayList<E>();
 	private Comparator<E> comparator;
 
 	public PriorityQueue(Comparator<E> comparator) {
