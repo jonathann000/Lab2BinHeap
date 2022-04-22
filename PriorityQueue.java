@@ -95,13 +95,11 @@ public class PriorityQueue<E> {
 
 	void updateElement(E newE, E oldE){
 		int ind = heap.indexOf(oldE);
-		if(!(ind < 0)) {
-			heap.set(ind, newE);
-			if (comparator.compare(oldE, newE) > 0) {
-				siftUp(ind);
-			} else {
-				siftDown(ind);
-			}
+		heap.set(ind, newE);
+		if (comparator.compare(oldE, newE) > 0) {
+			siftUp(ind);
+		} else {
+			siftDown(ind);
 		}
 	}
 
@@ -129,9 +127,23 @@ public class PriorityQueue<E> {
 
 	public String showHeap(){
 		StringBuilder op = new StringBuilder();
-		for (E b : heap){
-			op.append(b.toString());
-		}return op.toString();
+		ArrayList<E> tempHeap = new ArrayList<>(heap);
+		PriorityQueue<E> tempPQ = new PriorityQueue<>(comparator);
+		tempPQ.heap = tempHeap;
+		while (tempPQ.size() > 0) {
+			op.append(tempPQ.getHighestPrioElem().toString() + ", ");
+			tempPQ.deleteHighestPrioElem();
+		}
+		/*
+
+		for (E b : tempHeap){
+
+			op.append(b.toString() + ", ");
+
+		}*/
+		return op.toString();
+
+
 	}
 
 
