@@ -1,8 +1,8 @@
 public class Test {
 
     public static void main(String[] args){
-        PriorityQueue<Bid> pqMax = new PriorityQueue<>(new MaxComparator<Bid>());
-        PriorityQueue<Bid> pqMin = new PriorityQueue<>(new MinComparator<Bid>());
+        PriorityQueue pqMax = new PriorityQueue<>(new MaxComparator<>());
+        PriorityQueue<Bid> pqMin = new PriorityQueue<>(new MinComparator<>());
 
         Bid pelle  = new Bid("pelle", 1);
         Bid sara   = new Bid("sara", 2);
@@ -14,6 +14,7 @@ public class Test {
         pqMax.add(pelle);
         pqMax.add(sara);
         pqMax.add(niklas);
+        pqMax.add(12);
 
         pqMin.add(pelle);
         pqMin.add(sara);
