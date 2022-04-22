@@ -95,11 +95,13 @@ public class PriorityQueue<E> {
 
 	void updateElement(E newE, E oldE){
 		int ind = heap.indexOf(oldE);
-		heap.set(ind, newE);
-		if(comparator.compare(oldE, newE) > 0){
-			siftUp(ind);
-		}else {
-			siftDown(ind);
+		if(!(ind < 0)) {
+			heap.set(ind, newE);
+			if (comparator.compare(oldE, newE) > 0) {
+				siftUp(ind);
+			} else {
+				siftDown(ind);
+			}
 		}
 	}
 
@@ -124,4 +126,27 @@ public class PriorityQueue<E> {
 	private final int parent(int index) {
 		return (index-1)/2;
 	}
+
+	public String showHeap(){
+		StringBuilder op = new StringBuilder();
+		for (E b : heap){
+			op.append(b.toString());
+		}return op.toString();
+	}
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+

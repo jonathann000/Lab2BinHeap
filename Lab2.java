@@ -5,10 +5,11 @@ import java.util.*;
 public class Lab2 {
 	public static String pureMain(String[] commands) {
 		// TODO: declaration of two priority queues
-		PriorityQueue<Bid> sell_pq = new PriorityQueue<>(new MinComparator<Integer>());
-		PriorityQueue<Bid> buy_pq = new PriorityQueue<>(new MaxComparator<Bid>());
+		PriorityQueue<Bid> sell_pq = new PriorityQueue<>(new MinComparator<>());
+		PriorityQueue<Bid> buy_pq = new PriorityQueue<>(new MaxComparator<>());
 
 		StringBuilder sb = new StringBuilder();
+		StringBuilder ob = new StringBuilder();
 		for (int line_no = 0; line_no < commands.length; line_no++) {
 			String line = commands[line_no];
 			if (line.equals("")) continue;
@@ -53,6 +54,19 @@ public class Lab2 {
 				buy_pq.updateElement(newBid, bid);
 
 				} else if (action.equals("NS")) {
+				int elemIndex = sell_pq.findElement(bid);
+
+				int newPrice;
+				try {
+					newPrice = Integer.parseInt(parts[3]);
+				}catch (NumberFormatException e) {
+					throw new RuntimeException(
+							"line " + line_no + ": invalid price");
+				}
+
+				Bid newBid = new Bid (name, newPrice);
+
+				buy_pq.updateElement(newBid, bid);
 					// TODO: update existing sell bid. use parts[3].
 				} else {
 					throw new RuntimeException(
@@ -60,6 +74,17 @@ public class Lab2 {
 				}
 
 				if (sell_pq.size() == 0 || buy_pq.size() == 0) continue;
+
+				if (sell_pq.getHighestPrioElem().price <= buy_pq.getHighestPrioElem().price ){
+					ob.append(buy_pq.getHighestPrioElem().name);
+					ob.append(" buys a share from ");
+					ob.append(sell_pq.getHighestPrioElem().name);
+					ob.append(" for ");
+					ob.append(buy_pq.getHighestPrioElem().price);
+					ob.append("kr \n");
+					sell_pq.deleteHighestPrioElem();
+					buy_pq.deleteHighestPrioElem();
+				}
 
 				// TODO:
 				// compare the bids of highest priority from each of
@@ -71,12 +96,15 @@ public class Lab2 {
 			}
 
 			sb.append("Order book:\n");
+			sb.append(ob);
 
 			sb.append("Sellers: ");
+			sb.append(sell_pq.showHeap());
 			// TODO: print remaining sellers.
 			//       can remove from priority queue until it is empty.
 
 			sb.append("Buyers: ");
+			sb.append(buy_pq.showHeap());
 			// TODO: print remaining buyers
 			//       can remove from priority queue until it is empty.
 
