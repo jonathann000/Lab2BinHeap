@@ -22,7 +22,7 @@ public class PriorityQueue<E> {
 
 	// Returns the smallest item in the priority queue.
 	// Throws NoSuchElementException if empty.
-	public E minimum() {
+	public E getHighestPrioElem() {
 		if (size() == 0)
 			throw new NoSuchElementException();
 
@@ -31,7 +31,7 @@ public class PriorityQueue<E> {
 
 	// Removes the smallest item in the priority queue.
 	// Throws NoSuchElementException if empty.
-	public void deleteMinimum() {
+	public void deleteHighestPrioElem() {
 		if (size() == 0)
 			throw new NoSuchElementException();
 
@@ -46,11 +46,11 @@ public class PriorityQueue<E> {
 	private void siftUp(int index) {
 		E value = heap.get(index);
 		while (!(heap.get(parent(index)) == heap.get(index))){
-			int parent = parent(index);
-			E parentValue = heap.get(parent);
+			int parentIndex = parent(index);
+			E parentValue = heap.get(parentIndex);
 			if (comparator.compare(parentValue, value) > 0) {
 				heap.set(index, parentValue);
-				index = parent;
+				index = parentIndex;
 			} else break;
 		}
 		heap.set(index, value);
@@ -93,15 +93,24 @@ public class PriorityQueue<E> {
 		heap.set(index, value);
 	}
 
-	void ChangeBid(E newE, E oldE){
+	void updateElement(E newE, E oldE){
 		int ind = heap.indexOf(oldE);
 		heap.set(ind, newE);
-		if(comparator.compare(newE, oldE) > 0){
+		if(comparator.compare(oldE, newE) > 0){
 			siftUp(ind);
 		}else {
 			siftDown(ind);
 		}
 	}
+
+	int findElement(E e) {
+		int index = 0;
+		for (int i = 0; i < heap.size(); i++){
+			if (e.equals(heap.get(i))) return i;
+		}
+		throw new RuntimeException("noSuchElement");
+	}
+
 
 	// Helper functions for calculating the children and parent of an index.
 	private final int leftChild(int index) {

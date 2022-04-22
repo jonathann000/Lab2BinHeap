@@ -1,14 +1,14 @@
 public class Bid {
 	final public String name;
-	final public int bid;
+	final public int price;
 
-	public Bid(String name, int bid) {
+	public Bid(String name, int price) {
 		this.name = name;
-		this.bid = bid;
+		this.price = price;
 	}
 
 	public int hashCode() {
-		return 1 + 23*bid + 31*name.hashCode();
+		return 1 + 23*price + 31*name.hashCode();
 	}
 
 	public boolean equals(Object obj){
@@ -17,14 +17,14 @@ public class Bid {
 		Bid bid = (Bid) obj;
 
 		// TODO: compare the objects
-		if (bid.bid == this.bid) return true;
+		if (bid.price == this.price) return true;
 		else return false;
 	}
 	
 	public String toString(){
 		// TODO: return a description of the bid
-		String mony = String.valueOf(this.bid);
-		return (this.name + " " + mony + ",");
+		//String money = String.valueOf(this.price);
+		return (this.name + " " + price);
 	}
 }
 
