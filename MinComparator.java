@@ -4,6 +4,7 @@ import java.util.Comparator;
 public class MinComparator<E> implements Comparator<E> {
     /**
      * jämför och returnerar det lägsta av två Integers
+     * O(1)
      */
     @Override
     public int compare(E e1, E e2) {

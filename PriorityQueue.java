@@ -7,8 +7,8 @@ public class PriorityQueue<E> {
     private final HashMap<E, Integer> hashish = new HashMap<>();
 
 	/**
-	 *
-	 * @param comparator antar antingen MaxComparator eller MinComparator för att antingen va comparator för sell_pq eller buy_pq (PriorityQueue)
+	 * @param comparator antar antingen MaxComparator eller MinComparator
+     * för att antingen va comparator för sell_pq eller buy_pq (PriorityQueue)
 	 */
 
     public PriorityQueue(Comparator<E> comparator) {
@@ -207,7 +207,7 @@ public class PriorityQueue<E> {
     }
 
 	/**
-	 *
+	 * O(N) då den kopierar hela hashmapen
 	 * @return returerar hashMappen för att testa att den funkar i test.
 	 */
     public HashMap<E, Integer> getHashish() {
