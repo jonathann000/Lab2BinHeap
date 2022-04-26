@@ -6,6 +6,11 @@ public class PriorityQueue<E> {
     private final Comparator<E> comparator;
     private final HashMap<E, Integer> hashish = new HashMap<>();
 
+	/**
+	 *
+	 * @param comparator antar antingen MaxComparator eller MinComparator för att antingen va comparator för sell_pq eller buy_pq (PriorityQueue)
+	 */
+
     public PriorityQueue(Comparator<E> comparator) {
         this.comparator = comparator;
     }
@@ -113,6 +118,14 @@ public class PriorityQueue<E> {
         updateHash(value, index);
     }
 
+
+	/**
+	 *
+	 * @param newE Nya biddet
+	 * @param oldE Gamla biddet
+	 *
+	 * Metoden tar O(log n) eftersom den använder sig av siftUp och siftDown som är O(log n)
+	 */
     public void updateElement(E newE, E oldE) {
         if (!(hashish.get(oldE) == null)) {
             int ind = hashish.get(oldE);
@@ -141,6 +154,10 @@ public class PriorityQueue<E> {
         return (index - 1) / 2;
     }
 
+	/**
+	 *
+	 * @return returerar en string av våran heap för att jämföra mot testerna och se om de är korrekta.
+	 */
     public String showHeap() {
 
         StringBuilder op = new StringBuilder();
@@ -160,6 +177,10 @@ public class PriorityQueue<E> {
 
     }
 
+	/**
+	 *
+	 * @return returerar hashMappen för att testa att den funkar i test.
+	 */
     public HashMap<E, Integer> getHashish() {
         return new HashMap<>(hashish);
     }

@@ -8,8 +8,10 @@ public class Lab2 {
         PriorityQueue<Bid> sell_pq = new PriorityQueue<>(new MinComparator<>());
         PriorityQueue<Bid> buy_pq = new PriorityQueue<>(new MaxComparator<>());
 
+
         StringBuilder sb = new StringBuilder();
         StringBuilder ob = new StringBuilder(); // orderbook
+
 
         for (int line_no = 0; line_no < commands.length; line_no++) {
             String line = commands[line_no];
@@ -116,5 +118,6 @@ public class Lab2 {
 
         System.out.println(pureMain(lines.toArray(new String[lines.size()])));
     }
+
 }
 
