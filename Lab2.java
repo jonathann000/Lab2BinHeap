@@ -3,131 +3,118 @@ import java.io.*;
 import java.util.*;
 
 public class Lab2 {
-	public static String pureMain(String[] commands) {
-		// TODO: declaration of two priority queues
-		PriorityQueue<Bid> sell_pq = new PriorityQueue<>(new MinComparator<>());
-		PriorityQueue<Bid> buy_pq = new PriorityQueue<>(new MaxComparator<>());
+    public static String pureMain(String[] commands) {
 
-		StringBuilder sb = new StringBuilder();
-		StringBuilder ob = new StringBuilder();
-		for (int line_no = 0; line_no < commands.length; line_no++) {
-			String line = commands[line_no];
-			if (line.equals("")) continue;
+        PriorityQueue<Bid> sell_pq = new PriorityQueue<>(new MinComparator<>());
+        PriorityQueue<Bid> buy_pq = new PriorityQueue<>(new MaxComparator<>());
 
-			String[] parts = line.split("\\s+");
-			if (parts.length != 3 && parts.length != 4)
-				throw new RuntimeException("line " + line_no + ": " + parts.length + " words");
-			String name = parts[0];
-			if (name.charAt(0) == '\0')
-				throw new RuntimeException("line " + line_no + ": invalid name");
-			String action = parts[1];
-			int price;
-			try {
-				price = Integer.parseInt(parts[2]);
-			} catch (NumberFormatException e) {
-				throw new RuntimeException(
-						"line " + line_no + ": invalid price");
-			}
+        StringBuilder sb = new StringBuilder();
+        StringBuilder ob = new StringBuilder(); // orderbook
 
-			Bid bid = new Bid(name, price);
+        for (int line_no = 0; line_no < commands.length; line_no++) {
+            String line = commands[line_no];
+            if (line.equals("")) continue;
 
-			if (action.equals("K")) {
-				buy_pq.add(bid);
+            String[] parts = line.split("\\s+");
+            if (parts.length != 3 && parts.length != 4)
+                throw new RuntimeException("line " + line_no + ": " + parts.length + " words");
+            String name = parts[0];
+            if (name.charAt(0) == '\0')
+                throw new RuntimeException("line " + line_no + ": invalid name");
+            String action = parts[1];
+            int price;
+            try {
+                price = Integer.parseInt(parts[2]);
+            } catch (NumberFormatException e) {
+                throw new RuntimeException(
+                        "line " + line_no + ": invalid price");
+            }
 
-			} else if (action.equals("S")) {
-				sell_pq.add(bid);
+            Bid bid = new Bid(name, price);
 
-			} else if (action.equals("NK")) {
-				// TODO: update existing buy bid. use parts[3]
-				int elemIndex = buy_pq.findElement(bid);
+            switch (action) {
+                case "K" -> buy_pq.add(bid);
+                case "S" -> sell_pq.add(bid);
+                case "NK" -> {
 
-				int newPrice;
-				try {
-					newPrice = Integer.parseInt(parts[3]);
-				}catch (NumberFormatException e) {
-					throw new RuntimeException(
-							"line " + line_no + ": invalid price");
-				}
+                    int newPrice;
+                    try {
+                        newPrice = Integer.parseInt(parts[3]);
+                    } catch (NumberFormatException e) {
+                        throw new RuntimeException(
+                                "line " + line_no + ": invalid price");
+                    }
 
-				Bid newBid = new Bid (name, newPrice);
+                    Bid newBid = new Bid(name, newPrice);
 
-				buy_pq.updateElement(newBid, bid);
+                    buy_pq.updateElement(newBid, bid);
 
-				} else if (action.equals("NS")) {
-				int elemIndex = sell_pq.findElement(bid);
+                }
+                case "NS" -> {
 
-				int newPrice;
-				try {
-					newPrice = Integer.parseInt(parts[3]);
-				}catch (NumberFormatException e) {
-					throw new RuntimeException(
-							"line " + line_no + ": invalid price");
-				}
+                    int newPrice;
+                    try {
+                        newPrice = Integer.parseInt(parts[3]);
+                    } catch (NumberFormatException e) {
+                        throw new RuntimeException(
+                                "line " + line_no + ": invalid price");
+                    }
 
-				Bid newBid = new Bid (name, newPrice);
+                    Bid newBid = new Bid(name, newPrice);
 
-				sell_pq.updateElement(newBid, bid);
-					// TODO: update existing sell bid. use parts[3].
-				} else {
-					throw new RuntimeException(
-							"line " + line_no + ": invalid action");
-				}
+                    sell_pq.updateElement(newBid, bid);
 
-				if (sell_pq.size() == 0 || buy_pq.size() == 0) continue;
+                }
 
-				if (sell_pq.getHighestPrioElem().price <= buy_pq.getHighestPrioElem().price ){
-					ob.append(buy_pq.getHighestPrioElem().name);
-					ob.append(" buys a share from ");
-					ob.append(sell_pq.getHighestPrioElem().name);
-					ob.append(" for ");
-					ob.append(buy_pq.getHighestPrioElem().price);
-					ob.append("kr \n");
-					sell_pq.deleteHighestPrioElem();
-					buy_pq.deleteHighestPrioElem();
-			}
+                default -> throw new RuntimeException(
+                        "line " + line_no + ": invalid action");
+            }
 
-				// TODO:
-				// compare the bids of highest priority from each of
-				// each priority queues.
-				// if the lowest seller price is lower than or equal to
-				// the highest buyer price, then remove one bid from
-				// each priority queue and add a description of the
-				// transaction to the output.
-			}
+            if (sell_pq.size() == 0 || buy_pq.size() == 0) continue;
 
-			sb.append("Order book:\n");
-			sb.append(ob);
+            // comparing the two priority-queues, if a match deleting the elements from the queues and printing
+            // out the order
+            if (sell_pq.getHighestPrioElem().price <= buy_pq.getHighestPrioElem().price) {
 
-			sb.append("Sellers: ");
-			sb.append(sell_pq.showHeap() + "\n");
-			// TODO: print remaining sellers.
-			//       can remove from priority queue until it is empty.
+                ob.append(buy_pq.getHighestPrioElem().name);
+                ob.append(" buys a share from ");
+                ob.append(sell_pq.getHighestPrioElem().name + " for ");
+                ob.append(buy_pq.getHighestPrioElem().price + "kr \n");
 
-			sb.append("Buyers: ");
-			sb.append(buy_pq.showHeap());
-			// TODO: print remaining buyers
-			//       can remove from priority queue until it is empty.
+                sell_pq.deleteHighestPrioElem();
+                buy_pq.deleteHighestPrioElem();
+            }
+        }
 
-			return sb.toString();
-		}
+        sb.append("Order book:\n");
+        sb.append(ob);
 
-		public static void main (String[]args) throws IOException {
-			final BufferedReader actions;
-			if (args.length != 1) {
-				actions = new BufferedReader(new InputStreamReader(System.in));
-			} else {
-				actions = new BufferedReader(new FileReader(args[0]));
-			}
+        sb.append("Sellers: ");
+        sb.append(sell_pq.showHeap()).append("\n");
 
-			List<String> lines = new LinkedList<String>();
-			while (true) {
-				String line = actions.readLine();
-				if (line == null) break;
-				lines.add(line);
-			}
-			actions.close();
+        sb.append("Buyers: ");
+        sb.append(buy_pq.showHeap());
 
-			System.out.println(pureMain(lines.toArray(new String[lines.size()])));
-		}
-	}
+        return sb.toString();
+    }
+
+    public static void main(String[] args) throws IOException {
+        final BufferedReader actions;
+        if (args.length != 1) {
+            actions = new BufferedReader(new InputStreamReader(System.in));
+        } else {
+            actions = new BufferedReader(new FileReader(args[0]));
+        }
+
+        List<String> lines = new LinkedList<String>();
+        while (true) {
+            String line = actions.readLine();
+            if (line == null) break;
+            lines.add(line);
+        }
+        actions.close();
+
+        System.out.println(pureMain(lines.toArray(new String[lines.size()])));
+    }
+}
 

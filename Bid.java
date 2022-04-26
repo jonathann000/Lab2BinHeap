@@ -22,8 +22,6 @@ public class Bid {
 	}
 	
 	public String toString(){
-		// TODO: return a description of the bid
-		//String money = String.valueOf(this.price);
 		return (this.name + " " + price);
 	}
 }
