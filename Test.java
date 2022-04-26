@@ -1,3 +1,6 @@
+/**
+ * Authors: Jonathan Naumanen, Alexander Stenström, Adam Williams.
+ */
 public class Test {
 
     public static void main(String[] args) {

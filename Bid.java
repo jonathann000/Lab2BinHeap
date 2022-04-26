@@ -1,3 +1,6 @@
+/**
+ * Authors: Jonathan Naumanen, Alexander Stenström, Adam Williams.
+ */
 public class Bid {
     final public String name;
     final public int price;

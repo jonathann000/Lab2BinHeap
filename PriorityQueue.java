@@ -1,3 +1,6 @@
+/**
+ * Authors: Jonathan Naumanen, Alexander Stenström, Adam Williams.
+ */
 import java.util.*;
 
 // A priority queue.
