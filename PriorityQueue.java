@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Invarianten för heapen är att storleksordningen mellan förälder och barn alltid ska gälla oavsett vilken
  * comparator. Den andra invarianten är att hashmappen alltid ska ha rätt värde för motsvarande index i heapen.
- * siftUp och siftDown ser till att invarianten håller heapen
+ * siftUp och siftDown ser till att invarianten håller för PriorityQueuen
  * och updateHash ser till att invarianten håller för hashMap.
  * @param <E> typparameter
  */
