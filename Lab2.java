@@ -66,7 +66,7 @@ public class Lab2 {
 
 				Bid newBid = new Bid (name, newPrice);
 
-				buy_pq.updateElement(newBid, bid);
+				sell_pq.updateElement(newBid, bid);
 					// TODO: update existing sell bid. use parts[3].
 				} else {
 					throw new RuntimeException(
@@ -84,7 +84,7 @@ public class Lab2 {
 					ob.append("kr \n");
 					sell_pq.deleteHighestPrioElem();
 					buy_pq.deleteHighestPrioElem();
-				}
+			}
 
 				// TODO:
 				// compare the bids of highest priority from each of
@@ -99,7 +99,7 @@ public class Lab2 {
 			sb.append(ob);
 
 			sb.append("Sellers: ");
-			sb.append(sell_pq.showHeap());
+			sb.append(sell_pq.showHeap() + "\n");
 			// TODO: print remaining sellers.
 			//       can remove from priority queue until it is empty.
 
