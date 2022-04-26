@@ -78,8 +78,8 @@ public class Lab2 {
 
                 ob.append(buy_pq.getHighestPrioElem().name);
                 ob.append(" buys a share from ");
-                ob.append(sell_pq.getHighestPrioElem().name + " for ");
-                ob.append(buy_pq.getHighestPrioElem().price + "kr \n");
+                ob.append(sell_pq.getHighestPrioElem().name).append(" for ");
+                ob.append(buy_pq.getHighestPrioElem().price).append("kr \n");
 
                 sell_pq.deleteHighestPrioElem();
                 buy_pq.deleteHighestPrioElem();
