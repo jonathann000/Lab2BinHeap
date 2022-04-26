@@ -4,6 +4,7 @@ import java.util.*;
 public class PriorityQueue<E> {
 	public ArrayList<E> heap = new ArrayList<E>();
 	private Comparator<E> comparator;
+	private HashMap<E, Integer> hashish = new HashMap<>();
 
 	public PriorityQueue(Comparator<E> comparator) {
 		this.comparator = comparator;
@@ -50,10 +51,20 @@ public class PriorityQueue<E> {
 			E parentValue = heap.get(parentIndex);
 			if (comparator.compare(parentValue, value) > 0) {
 				heap.set(index, parentValue);
+				updateHash(parentValue, index);
 				index = parentIndex;
 			} else break;
 		}
 		heap.set(index, value);
+		updateHash(value, index);
+	}
+
+	private void updateHash(E value, int index){
+		if(hashish.isEmpty() || (!hashish.containsKey(value))){
+			hashish.put(value, index);
+		}else {
+			hashish.replace(value, index);
+		}
 	}
      
 	// Sifts a node down.
@@ -86,22 +97,30 @@ public class PriorityQueue<E> {
 			// carry on downwards.
 			if (comparator.compare(value, childValue) > 0) {
 				heap.set(index, childValue);
+				updateHash(childValue, index);
 				index = child;
 			} else break;
 		}
 
 		heap.set(index, value);
+		updateHash(value, index);
 	}
 
 	public void updateElement(E newE, E oldE){
-		int ind = heap.indexOf(oldE);
-		heap.set(ind, newE);
+		if(!(hashish.get(oldE) == null)) {
+			int ind = hashish.get(oldE);
+			heap.set(ind, newE);
+			hashish.remove(oldE);
+			hashish.put(newE, ind);
 		if (comparator.compare(oldE, newE) > 0) {
 			siftUp(ind);
 		} else {
 			siftDown(ind);
 		}
+		}
 	}
+
+
 
 	// Helper functions for calculating the children and parent of an index.
 	private final int leftChild(int index) {
@@ -132,6 +151,12 @@ public class PriorityQueue<E> {
 		}
 
 		return op.toString();
+
+	}
+
+	public HashMap<E, Integer> getHashish(){
+		HashMap<E, Integer> op = new HashMap<>(hashish);
+		return op;
 
 	}
 

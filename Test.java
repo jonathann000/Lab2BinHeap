@@ -29,6 +29,9 @@ public class Test {
         pqMax.updateElement(bruh, pelle);
         pqTom.updateElement(bruh, pelle);
 
+        System.out.println(pqMax.getHashish());
+        System.out.println(pqMax.showHeap());;
+
         //System.out.println(pqMax.getHighestPrioElem());
 
 
