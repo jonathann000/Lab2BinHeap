@@ -156,11 +156,13 @@ public class PriorityQueue<E> {
 
 	/**
 	 *
-	 * @return returerar en string av våran heap för att jämföra mot testerna och se om de är korrekta.
+	 * @return returerar en string av heapen för att jämföra mot testerna och se om de är korrekta.
+	 * O(n)
+	 *
 	 */
     public String showHeap() {
 
-        StringBuilder op = new StringBuilder();
+		StringBuilder op = new StringBuilder();
 
         ArrayList<E> tempHeap = new ArrayList<>(heap);
 
