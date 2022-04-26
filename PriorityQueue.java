@@ -93,7 +93,7 @@ public class PriorityQueue<E> {
 		heap.set(index, value);
 	}
 
-	void updateElement(E newE, E oldE){
+	public void updateElement(E newE, E oldE){
 		int ind = heap.indexOf(oldE);
 		heap.set(ind, newE);
 		if (comparator.compare(oldE, newE) > 0) {
@@ -102,15 +102,6 @@ public class PriorityQueue<E> {
 			siftDown(ind);
 		}
 	}
-
-	int findElement(E e) {
-		int index = 0;
-		for (int i = 0; i < heap.size(); i++){
-			if (e.equals(heap.get(i))) return i;
-		}
-		throw new RuntimeException("noSuchElement");
-	}
-
 
 	// Helper functions for calculating the children and parent of an index.
 	private final int leftChild(int index) {
@@ -126,23 +117,21 @@ public class PriorityQueue<E> {
 	}
 
 	public String showHeap(){
+
 		StringBuilder op = new StringBuilder();
+
 		ArrayList<E> tempHeap = new ArrayList<>(heap);
+
 		PriorityQueue<E> tempPQ = new PriorityQueue<>(comparator);
+
 		tempPQ.heap = tempHeap;
+
 		while (tempPQ.size() > 0) {
 			op.append(tempPQ.getHighestPrioElem().toString() + ", ");
 			tempPQ.deleteHighestPrioElem();
 		}
-		/*
 
-		for (E b : tempHeap){
-
-			op.append(b.toString() + ", ");
-
-		}*/
 		return op.toString();
-
 
 	}
 
