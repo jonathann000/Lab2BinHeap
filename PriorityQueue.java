@@ -59,6 +59,13 @@ public class PriorityQueue<E> {
         updateHash(value, index);
     }
 
+    /**
+     * Uppdaterar hashMapen med budets nya indexposition
+     * O(1)
+     * @param value Bid
+     * @param index int
+     */
+
     private void updateHash(E value, int index) {
         if (hashish.isEmpty() || (!hashish.containsKey(value))) {
             hashish.put(value, index);

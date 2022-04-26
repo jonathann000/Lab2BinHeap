@@ -1,7 +1,9 @@
 import java.util.Comparator;
 
 public class MaxComparator<E> implements Comparator<E> {
-
+    /**
+     * jämför och returnerar det högsta av två Integers
+     */
     @Override
     public int compare(E e1, E e2) {
         if (!(e1 instanceof Bid b1 && e2 instanceof Bid b2)) throw new RuntimeException("Not bid stupid");
