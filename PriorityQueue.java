@@ -20,13 +20,23 @@ public class PriorityQueue<E> {
         return heap.size();
     }
 
-    // Adds an item to the priority queue.
+	/**
+	 * Lägger till ett element sist i heapen.
+	 * O(log n) på grund av metodanropet till siftUp som är O(log n)
+	 *
+	 * @param x, elementet att lägga till i heapen.
+	 */
+	// Adds an item to the priority queue.
     public void add(E x) {
         heap.add(x);
         siftUp(heap.size() - 1);
     }
 
-    // Returns the smallest item in the priority queue.
+	/**
+	 * O(1)
+	 * @return elementet med högst prioritet i heapen.
+	 */
+	// Returns the smallest item in the priority queue.
     // Throws NoSuchElementException if empty.
     public E getHighestPrioElem() {
         if (size() == 0)
@@ -35,6 +45,11 @@ public class PriorityQueue<E> {
         return heap.get(0);
     }
 
+
+	/**
+	 * Tar bort det högst prioriterade elementet från heapen.
+	 * O(log n) p.g.a anropet till siftDown.
+	 */
     // Removes the smallest item in the priority queue.
     // Throws NoSuchElementException if empty.
     public void deleteHighestPrioElem() {
@@ -46,6 +61,12 @@ public class PriorityQueue<E> {
         if (heap.size() > 0) siftDown(0);
     }
 
+
+	/**
+	 * siftar upp en nod. Kommer att updatera både heapen och hashmap.
+	 * O(log n)
+	 * @param index av elementet att sifta upp har.
+	 */
     // Sifts a node up.
     // siftUp(index) fixes the invariant if the element at 'index' may
     // be less than its parent, but all other elements are correct.
@@ -79,6 +100,12 @@ public class PriorityQueue<E> {
         }
     }
 
+
+	/**
+	 * Siftar ner en nod. Kommer att uppdatera både heapen och hashmapen.
+	 * O(log n)
+	 * @param index av elementet att bli nersiftad.
+	 */
     // Sifts a node down.
     // siftDown(index) fixes the invariant if the element at 'index' may
     // be greater than its children, but all other elements are correct.
