@@ -3,7 +3,13 @@
  */
 import java.util.*;
 
-// A priority queue.
+/**
+ * Invarianten för heapen är att storleksordningen mellan förälder och barn alltid ska gälla oavsett vilken
+ * comparator. Den andra invarianten är att hashmappen alltid ska ha rätt värde för motsvarande index i heapen.
+ * siftUp och siftDown ser till att invarianten håller heapen
+ * och updateHash ser till att invarianten håller för hashMap.
+ * @param <E> typparameter
+ */
 public class PriorityQueue<E> {
     public ArrayList<E> heap = new ArrayList<>();
     private final Comparator<E> comparator;
